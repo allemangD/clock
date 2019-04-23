@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clock</title>
+
+    <script src="https://code.jquery.com/jquery-3.4.0.slim.min.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .center {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #time {
+            font-family: "Dubai Light", "Dubai", sans-serif;
+            font-size: 144pt;
+        }
+
+        #content {
+            background-color: white;
+            color: black;
+        }
+
+        #invert {
+            height: 5em;
+
+            position: fixed;
+            bottom: 0;
+            right: 0;
+
+            opacity: .1;
+        }
+
+        #invert:hover {
+            opacity: .2;
+        }
+
+        #content.invert {
+            background-color: black;
+            color: white;
+        }
+
+        #content.invert img {
+            filter: invert(100%);
+        }
+    </style>
+
+    <script>
+        function update() {
+            let opts = {hour: 'numeric', minute: '2-digit'};
+            $('#time').text(new Date().toLocaleTimeString('en', opts));
+
+            setTimeout(update, 5000);
+        }
+
+        function invert() {
+            let content = $('#content');
+
+            if (content.not('.invert').length) {
+                content.addClass('invert');
+            } else {
+                content.removeClass('invert');
+            }
+        }
+
+        $(document).ready(update);
+    </script>
+</head>
+<body>
+<div id="content" class="center">
+    <h1 id="time">[...]</h1>
+    <img id="invert" src="invert.svg" alt="invert colors" onclick="invert()">
+</div>
+</body>
+</html>
